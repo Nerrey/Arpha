@@ -1,0 +1,23 @@
+production:
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  database: simply
+  username: ns
+  password: 14156
+
+development:
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  database: simply
+  username: ns
+  password: 14156
+
+# test:
+#   adapter: postgresql
+#   encoding: unicode
+#   host: postgresql6.locum.ru
+#   database: nerrey_nerrey80
+#   username: nerrey_nerrey80
+#   password: Aaa14156
