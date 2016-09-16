@@ -1,0 +1,16 @@
+.container
+  .row
+    .col-xs-12.col-md-9
+      -@webinfo.each do |web|
+        .col-md-4
+          = render "thumbnail", web: web
+  / = render "modal"
+  %br
+  123
+  .container
+    .row
+      %br
+      %br
+      %br
+:css
+  .countdown { float: left; width: 100%; }

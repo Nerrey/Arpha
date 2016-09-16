@@ -12,9 +12,13 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem "haml-rails"
 gem "twitter-bootstrap-rails"
+gem "opentok", "~> 2.3"
 
 gem 'devise'
+gem "paperclip", "~> 5.0.0"
+gem 'ratyrate'
 gem 'simple_form'
+gem 'devise-bootstrap-views'
 gem "russian"
 
 
