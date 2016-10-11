@@ -24,6 +24,12 @@ gem "russian"
 
 gem 'capistrano'
 gem 'unicorn'
+gem "puma"
+
+gem 'better_errors'
+gem 'binding_of_caller'
+gem 'pry'
+gem 'annotate'
 
 gem 'cancancan'
 gem 'redis'

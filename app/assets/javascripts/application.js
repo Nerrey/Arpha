@@ -15,4 +15,5 @@
 //= require twitter/bootstrap
 //= require jquery.raty
 //= require ratyrate
-//= require_tree .
+//= require_tree
+//= requare videotest .

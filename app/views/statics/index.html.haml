@@ -1,15 +1,6 @@
-/ %div{id: "subscribers"}
-/ %div{id: "publisher"}
-/ %script
-/   var apiKey = '<%= @api_key %>';
-/   var sessionId = '<%= @session_id %>';
-/   var token = '<%= @token %>';
- 
+%canvas#canvas{:height => "480", :style => "border:1px solid #d3d3d3;", :width => "640", src: $redis.get("/video/1")}
+#test
+= link_to "Go", flag_path, id: "bt", :class => "btn btn-success", :remote => true
+/ = link_to "Go", flag_path, :class => 'btn btn-default', :remote => true
 
-/ %script{src: "/js/helloworld.js"}
-
-
-/ %div#subscribers
-/ %div#publisher
-/ #subscribers
-/ #publisher
+  

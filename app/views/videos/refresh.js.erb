@@ -1,0 +1,9 @@
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+var imageObj = new Image();
+function refresh() {
+  imageObj.src = "<%= @stopcam %>";
+  context.drawImage(imageObj, 0, 0);
+};
+refresh();
+$("#refresh").attr("href", "/refresh?shot=<%= @cadr %>");

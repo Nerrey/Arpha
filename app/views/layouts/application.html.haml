@@ -16,9 +16,6 @@
     / Le HTML5 shim, for IE6-8 support of HTML elements
     /[if lt IE 9]
       = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"
-    %script{src: "//static.opentok.com/webrtc/v2.2/js/TB.min.js"}
-
-    
       
   %body
     .navbar.navbar-default.navbar-static-top
@@ -33,7 +30,10 @@
             %li= link_to "Вебинары", webinars_path
             %li= link_to "Темы", themes_path
             %li= link_to "Вебинары2", imgwebinar_path
-            / %li= link_to "test2", test2_path
+            %li= link_to "Демонстрация", client_path
+            %li= link_to "Видео на канвасе", canvideo_path
+            %li= link_to "Cкачать", recordvideo_path
+            %li= link_to "videotest", videotest_path
           %ul.nav.navbar-nav.navbar-right
             -if current_user.nil?
               %li= link_to "регистрация", new_user_registration_path
@@ -51,5 +51,5 @@
           = bootstrap_flash
           = yield
         
-      %footer
-        %p &copy; Company 2016
+      / %footer
+      /   %p &copy; Company 2016

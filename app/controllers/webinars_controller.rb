@@ -26,7 +26,7 @@ class WebinarsController < ApplicationController
   # POST /webinars
   def create
     @webinar = Webinar.new(webinar_params)
-
+    @webinar.user_id = current_user.id if current_user
     if @webinar.save
       redirect_to @webinar, notice: 'Webinar was successfully created.'
     else
@@ -57,6 +57,6 @@ class WebinarsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def webinar_params
-      params.require(:webinar).permit(:name, :theme, :rate)
+      params.require(:webinar).permit(:name, :theme_id, :rate, :photo)
     end
 end

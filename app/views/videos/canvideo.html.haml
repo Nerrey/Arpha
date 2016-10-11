@@ -1,0 +1,8 @@
+%canvas#canvas{:height => "480", :style => "border:1px solid #d3d3d3;", :width => "640"}
+/ %img{:src => "#{$redis.get("/video/"+rand(1000).to_s)}"}
+%br
+= link_to "Refresh", refresh_path(shot: 0), id: "refresh", :class => 'btn btn-default', :remote => true
+:javascript
+  function ref(){$("#refresh").click();};
+  setInterval(ref, 30);
+

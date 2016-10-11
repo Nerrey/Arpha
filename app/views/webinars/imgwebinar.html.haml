@@ -1,6 +1,6 @@
 .container
   .row
-    .col-xs-12.col-md-9
+    .col-xs-8
       -@webinfo.each do |web|
         .col-md-4
           = render "thumbnail", web: web
@@ -9,8 +9,6 @@
   123
   .container
     .row
-      %br
-      %br
       %br
 :css
   .countdown { float: left; width: 100%; }

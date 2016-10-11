@@ -1,0 +1,72 @@
+%video#vid{:autoplay => "", :style => "display:none;"}
+%canvas#canvas{:height => "480", :style => "border:1px solid #d3d3d3;", :width => "640"}
+%br
+:javascript
+  var video = document.querySelector("#vid"),
+  canvas = document.querySelector('#canvas'),
+  ctx = canvas.getContext('2d'),
+  localMediaStream = null,
+  onCameraFail = function (e) {
+  console.log('Camera did not work.', e); // Исключение на случай, если камера не работает
+  };
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+  window.URL = window.URL || window.webkitURL;
+  navigator.getUserMedia({video: true}, function(stream) {
+  video.src = window.URL.createObjectURL(stream);
+  localMediaStream = stream;
+  }, onCameraFail);
+  cameraInterval = setInterval(function(){ snapshot();}, 30);
+  function snapshot(){
+  if(localMediaStream){
+  ctx.drawImage(video, 0, 0);
+  }
+  }
+%button{:onclick => "startBroadcasting()"} Start Broadcasting
+%button{:onclick => "stopBroadcasting()"} Stop Broadcasting
+%button{:onclick => "send_image()"} Send Image
+:javascript
+  var quality = 1.0;
+  var isBroadcasting = false,
+  broadcastingTimer;
+  function sendSnapshot(){
+  if(localMediaStream && !isBroadcasting){
+  isBroadcasting = true;
+  $.post("/server",
+  {
+  p: "new",
+  text: ctx.canvas.toDataURL("image/webp", quality)
+  },
+  function(result){
+  console.log(result); // На случай, если что-то пойдёт не так
+  isBroadcasting = false;
+  }
+  );
+  }
+  }
+  function startBroadcasting(){
+  broadcastingTimer = setInterval(sendSnapshot, 30);
+  }
+  function stopBroadcasting(){
+  clearInterval(broadcastingTimer);
+  }
+  function send_image(){
+  sendSnapshot();
+  }
+  function startRecording() {
+  streamRecorder = localMediaStream.record();
+  setTimeout(stopRecording, 10000);
+  }
+  function stopRecording() {
+  streamRecorder.getRecordedData(postVideoToServer);
+  }
+  function postVideoToServer(videoblob) {
+
+  var data = {};
+  data.video = videoblob;
+  data.metadata = 'test metadata';
+  data.action = "upload_video";
+  jQuery.post("http://www.foundthru.co.uk/uploadvideo.php", data, onUploadSuccess);
+  }
+  function onUploadSuccess() {
+    alert ('video uploaded');
+  }

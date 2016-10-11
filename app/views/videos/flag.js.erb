@@ -1,0 +1,8 @@
+
+<% if $redis.get("flag")  == "off" %>
+  $("#bt").attr("class","btn btn-success");
+  $("#bt").text("Go");
+<% else %>
+  $("#bt").attr("class","btn btn-danger");
+  $("#bt").text("Stop");
+<% end %>

@@ -1,0 +1,43 @@
+%video#vid{:autoplay => "", :height => "480", :style => "border:1px solid #d3d3d3;", :width => "640"}
+%br
+:javascript
+  var video = document.querySelector("#vid"),
+  localMediaStream = null,
+  onCameraFail = function (e) {
+  console.log('Camera did not work.', e); // Исключение на случай, если камера не работает
+  };
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+  window.URL = window.URL || window.webkitURL;
+  navigator.getUserMedia({video: true}, function(stream) {
+  video.src = window.URL.createObjectURL(stream);
+  localMediaStream = stream;
+  }, onCameraFail);
+  
+%button{:onclick => "startVideo()"} Start Video
+%button{:onclick => "recordVideo()"} Record video
+:javascript 
+  function startVideo(){
+  stream();
+  }
+  
+  function recordVideo(){
+  streamRecorder = localMediaStream.record();
+  setTimeout(stopRecording, 1000);
+  }
+  
+  function stopRecording(){
+  streamRecorder.getRecordedData(postVideoToServer);
+  }
+
+  function postVideoToServer(videoblob){
+  var data = {};
+  data.video = videoblob;
+  data.metadata = 'test metadata';
+  data.action = "upload_video";
+  jQuery.post("http://localhost:3000/uploadvideo.php", data, onUploadSuccess);
+  }
+
+  function onUploadSuccess(){
+  alert ("video uploaded");
+  }
+  

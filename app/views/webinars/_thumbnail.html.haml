@@ -1,15 +1,18 @@
 .thumbnail
-  / = image_tag(bot.photo)
   .caption
-    %a{:href => root_path}
+    %a{:href => webinar_path(id: web.id)}
       %h3 
         =web[:name]
-      / = image_tag("#{web.image}", width: "200", height: "200")
+        %br
+        = image_tag(web.photo.url(:thumb))
     %p
       Тема: 
-      =web.theme
+      =web.theme.name
     %p
-      Рейтинг:
+      Автор:
+      %h4
+        =web.user.email
+    %p
       = rating_for web, 'popularity',cancel: true, cancel_place: :left
     %br
     %br
